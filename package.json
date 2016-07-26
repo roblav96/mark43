@@ -1,41 +1,45 @@
 {
-  "name": "mark43-front-end-take-home-test",
-  "version": "0.9.0",
-  "description": "Mark43 FE take home test",
-  "scripts": {
-    "devserver": "webpack-dev-server --config webpack.config.js --content-base ./devserver_files --port 4343 --colors",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "webpack",
-    "react"
-  ],
-  "author": "",
-  "homepage": "",
-  "dependencies": {
-    "faker": "^3.1.0",
-    "lodash": "^4.13.1"
-  },
-  "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-core": "^6.10.4",
-    "babel-loader": "^6.2.4",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-syntax-object-rest-spread": "^6.8.0",
-    "babel-plugin-transform-es2015-classes": "^6.9.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
-    "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
-    "babel-plugin-transform-es3-property-literals": "^6.8.0",
-    "babel-plugin-transform-object-rest-spread": "^6.8.0",
-    "babel-plugin-transform-proto-to-assign": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
-    "css-loader": "^0.23.1",
-    "file-loader": "^0.9.0",
-    "script-loader": "^0.7.0",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
-  }
+	"name": "mark43-front-end-take-home-test",
+	"version": "0.9.0",
+	"description": "Mark43 FE take home test",
+	"scripts": {
+		"devserver": "webpack-dev-server --config webpack.config.js --content-base ./devserver_files --port 4343 --colors",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"webpack",
+		"react"
+	],
+	"author": "",
+	"homepage": "",
+	"dependencies": {
+		"bulma": "*",
+		"animate.css": "*",
+		"vue": "*",
+		"faker": "^3.1.0",
+		"lodash": "^4.13.1"
+	},
+	"devDependencies": {
+		"babel": "^6.5.2",
+		"babel-core": "^6.10.4",
+		"babel-loader": "^6.2.4",
+		"babel-plugin-add-module-exports": "^0.2.1",
+		"babel-plugin-syntax-object-rest-spread": "^6.8.0",
+		"babel-plugin-transform-es2015-classes": "^6.9.0",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
+		"babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
+		"babel-plugin-transform-es3-property-literals": "^6.8.0",
+		"babel-plugin-transform-object-rest-spread": "^6.8.0",
+		"babel-plugin-transform-proto-to-assign": "^6.9.0",
+		"babel-preset-es2015": "^6.9.0",
+		"babel-preset-react": "^6.11.1",
+		"css-loader": "^0.23.1",
+		"file-loader": "^0.9.0",
+		"script-loader": "^0.7.0",
+		"style-loader": "^0.13.1",
+		"url-loader": "^0.5.7",
+		"webpack": "^1.13.1",
+		"webpack-dev-server": "^1.14.1"
+	}
 }
+

@@ -1,6 +1,8 @@
 import faker from 'faker';
 import { map, range } from 'lodash';
 
+console.info( 'names' )
+
 /**
  * List of all names 
  */
