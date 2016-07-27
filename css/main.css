@@ -8,6 +8,13 @@ body,
     height: 100%;
     width: 100%;
     overflow: hidden;
+    background-color: #42afe3;
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }
 
 .t-black {
@@ -124,6 +131,22 @@ body,
 
 .t-right {
     text-align: right !important;
+}
+
+.marg-0 {
+    margin: 0px !important;
+}
+
+.bg-white {
+    background-color: white !important;
+}
+
+footer a {
+    color: #42afe3 !important;
+}
+
+footer a:visited {
+    color: #42afe3 !important;
 }
 
 

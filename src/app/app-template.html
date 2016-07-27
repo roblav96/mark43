@@ -2,44 +2,67 @@
 
 
 
-<section class="hero is-info is-fullheight">
-    <div class="hero-head">
+<section class="hero is-info">
+    <div class="hero-head animated fadeInDown">
         <header class="nav">
             <div class="container">
-                <span class="nav-item t-200 t-bolder">
-                    Mark43 - Take Home Test
-                </span>
+                <div class="nav-left">
+                    <span class="nav-item t-200 t-bolder">
+                        Mark43 - Take Home Test
+                    </span>
+                </div>
+                <div class="nav-right">
+                    <span class="nav-item">
+                        <a class="button is-light">
+                            <span>Cheat Sheet</span>
+                        </a>
+                    </span>
+                </div>
             </div>
         </header>
     </div>
 
-    <div class="hero-body">
-        <div class="container content is-large">
-            <label class="label t-white">Star Wars Characters</label>
-            <p class="control">
-                <input class="input is-large" type="text" placeholder="Text input">
-            </p>
+    <div class="hero-body animated fadeIn">
+        <div class="content is-large">
+            <h3 class="t-white t-center t-bolder marg-0">Pick your poison...</h3>
+
+            <div class="tabs is-centered is-boxed is-medium">
+                <ul>
+                    <li v-for="item in poisons" v-on:click="setPoison($index)" v-bind:class="{ 'is-active': poison == $index }">
+                        <a>
+                            <span>{{item.name}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <autocomplete></autocomplete>
+
+<!--             <div class="container control">
+                <input class="input is-large" type="text" v-bind:placeholder="poisons[poison].name" v-model="input">
+            </div> -->
+            
         </div>
     </div>
 
-    <div class="hero-foot">
-        <div class="container">
-            <div class="content is-medium has-text-centered notification">
-                <p class="t-grey-dark">
-                    <span class="t-bolder">Robert Laverty</span> -
-                    <a href="roblav96@gmail.com">roblav96@gmail.com</a> -
-                    <a href="tel:+14018643464">401-864-3464</a> -
-                    <a href="https://www.github.com/roblav96">GitHub</a> -
-                    <a href="https://www.facebook.com/roblav96">Facebook</a> -
-                    <a href="https://www.linkedin.com/in/roblav96">LinkedIn</a>
-                </p>
-            </div>
-        </div>
-    </div>
 </section>
 
 
 
+<footer class="animated fadeInUp">
+    <div class="container">
+        <div class="content is-medium has-text-centered notification bg-white">
+            <p class="t-grey-dark">
+                <span class="t-bolder">Robert Laverty</span> -
+                <a href="roblav96@gmail.com">roblav96@gmail.com</a> -
+                <a href="tel:+14018643464">401-864-3464</a> -
+                <a href="https://www.github.com/roblav96">GitHub</a> -
+                <a href="https://www.facebook.com/roblav96">Facebook</a> -
+                <a href="https://www.linkedin.com/in/roblav96">LinkedIn</a>
+            </p>
+        </div>
+    </div>
+</footer>
 
 
 <!--  -->
