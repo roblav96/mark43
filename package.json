@@ -4,10 +4,12 @@
 	"author": "Rob Laverty <roblav96@gmx.com>",
 	"private": true,
 	"scripts": {
-		"dev": "webpack-dev-server --inline --hot",
+		"dev": "webpack-dev-server --inline --hot --watch",
 		"build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
 	},
 	"dependencies": {
+		"axios": "*",
+		"jimp": "*",
 		"lodash": "*",
 		"vue": "*",
 		"vuex": "*",
