@@ -390,6 +390,7 @@ footer a:visited {
 .button > span.icon > i.ion-icon,
 .button > i.ion-icon {
     font-size: 115%;
+    margin-right: 0.25rem;
 }
 
 .button > span.icon.icon-only {

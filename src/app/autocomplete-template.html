@@ -4,9 +4,10 @@
 
 
 
-<div class="control">
+<div class="control has-icon">
     <input id="autocomplete" class="input is-large" type="text" placeholder="Search Pokemon..." v-model="input"
         debounce="1000" v-on:keydown="inputKeydown">
+    <i class="fa ion-icon icon-search"></i>
 </div>
 
 <div v-show="results.length != 0" class="row autocomplete-table-header animated" transition="flip-header">
@@ -29,8 +30,9 @@
 
 <div v-show="results.length != 0" class="autocomplete-wrapper message-body animated" transition="fade-results"
     v-on:keydown="stopScroll">
-    <div class="media autocomplete-item pointer animated" v-for="item in results" v-autocomplete-item="focused" v-bind:focusindex="$index"
-        tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger" stagger="50">
+    <div class="media autocomplete-item pointer animated" v-for="item in results" v-autocomplete-item="focused"
+        v-bind:focusindex="$index" tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger"
+        stagger="50">
         <figure class="media-left">
             <div class="image is-48x48">
                 <img v-bind:src="item.imageUrl">

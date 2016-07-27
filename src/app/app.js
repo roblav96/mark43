@@ -40,9 +40,7 @@ module.exports = {
 	methods: {
 
 		setRoute: function ( route ) {
-			console.info( 'setRoute', random( 0, 1 ) )
-			let arr = [ 'card', 'autocomplete' ]
-			this.route = arr[ random( 0, 1 ) ]
+			this.route = route
 		},
 
 	},
