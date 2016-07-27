@@ -1,9 +1,13 @@
 //
 
 import {
+	random
+} from 'lodash'
+import {
 	store_setDB,
 } from '../store'
 import autocomplete from './autocomplete.vue'
+import card from './card.vue'
 
 
 
@@ -13,6 +17,7 @@ module.exports = {
 
 	components: {
 		autocomplete,
+		card,
 	},
 
 	vuex: {
@@ -23,7 +28,7 @@ module.exports = {
 
 	data: function () {
 		return {
-			
+			route: 'autocomplete',
 		}
 	},
 
@@ -32,8 +37,12 @@ module.exports = {
 	},
 
 	methods: {
-		
-		
+
+		setRoute: function () {
+			console.info( 'setRoute', random( 0, 1 ) )
+			let arr = [ 'card', 'autocomplete' ]
+			this.route = arr[ random( 0, 1 ) ]
+		},
 
 	},
 

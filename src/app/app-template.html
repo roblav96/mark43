@@ -25,48 +25,18 @@
                 </span>
             </div>
             <div class="nav-right">
+                <span class="nav-item">
+                    <a class="button" v-on:click="setRoute">
+                        <span>View Card</span>
+                    </a>
+                </span>
             </div>
         </div>
     </header>
 
-    <!--     <aside class="menu col-xs hero is-warning">
-        <p class="menu-label">
-            Card
-        </p>
-        <ul class="menu-list">
-            <li>
-                <a>Team Settings</a>
-            </li>
-            <li>
-                <a class="is-active">Manage Your Team</a>
-                <ul>
-                    <li>
-                        <a>Members</a>
-                    </li>
-                    <li>
-                        <a>Plugins</a>
-                    </li>
-                    <li>
-                        <a>Add a member</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a>Invitations</a>
-            </li>
-            <li>
-                <a>Authentication</a>
-            </li>
-        </ul>
-    </aside> -->
-
     <div class="body container animated fadeIn">
 
-        <autocomplete></autocomplete>
-
-<!--         <div class="content">
-            <h1 class="t-white t-left t-bolder">Search for Pokemon</h1>
-        </div> -->
+        <component v-bind:is="route"></component>
 
     </div>
 
