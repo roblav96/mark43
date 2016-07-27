@@ -1,5 +1,10 @@
 /**/
 
+
+/*
+	CONTENT
+*/
+
 html,
 body,
 #app {
@@ -16,6 +21,51 @@ footer {
     bottom: 0px;
     width: 100%;
 }
+
+
+/*
+	PROG
+*/
+
+#prog {
+    position: fixed;
+    top: 0px;
+    height: 0.5rem;
+    width: 25%;
+    z-index: 99;
+    will-change: transform, opacity;
+}
+
+.prog {
+    left: 0px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+    background-color: #fff;
+}
+
+@keyframes progging {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        transform: translate3d(300%, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.progging {
+    animation-iteration-count: infinite;
+    animation-name: progging;
+    opacity: 1;
+    animation-duration: 2s;
+}
+
+
+/*
+	MISC
+*/
 
 .t-black {
     color: #111 !important;

@@ -1,7 +1,9 @@
 //
 
+import {
+	store_setDB,
+} from '../store'
 import autocomplete from './autocomplete.vue'
-import db from '../db'
 
 
 
@@ -13,28 +15,34 @@ module.exports = {
 		autocomplete,
 	},
 
+	vuex: {
+		getters: {
+			progging: state => state.progging,
+		},
+		actions: {
+			setDB: store_setDB,
+		},
+	},
+
 	data: function () {
 		return {
-			input: '',
 			poison: 0,
 			poisons: [ {
 				name: 'Star Wars Characters',
-				map: 'starwars',
+				table: 'starwars',
 			}, {
 				name: 'Planets',
-				map: 'planets',
+				table: 'planets',
 			}, {
 				name: 'Game Of Thrones Characters',
-				map: 'thrones',
+				table: 'thrones',
 			}, {
 				name: 'Beer Names',
-				map: 'beer',
+				table: 'beer',
 			}, {
 				name: 'Pokemon',
-				map: 'pokemon',
+				table: 'pokemon',
 			} ],
-			db: [],
-			results: [],
 		}
 	},
 
@@ -45,13 +53,13 @@ module.exports = {
 
 	methods: {
 
-		setPoison: function ( i = 0, count = 10000 ) {
-			let map = this.poisons[ i ].map
-			this.db.splice( 0, this.db.length )
-			this.db = db[ map ]
-
-			this.poison = i
-
+		setPoison: function ( i = 0 ) {
+			let table = this.poisons[ i ].table
+			this.setDB( table ).then( () => {
+				this.poison = i // only set poison if the table exists in database
+			} ).catch( function ( err ) {
+				console.error( err ) // if the table does not exist
+			} )
 		},
 
 	},

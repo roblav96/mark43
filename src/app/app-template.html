@@ -2,6 +2,14 @@
 
 
 
+
+
+<div id="prog" class="prog" v-bind:class="{ 'progging': progging }"></div>
+
+
+
+
+
 <section class="hero is-info">
     <div class="hero-head animated fadeInDown">
         <header class="nav">
@@ -35,13 +43,9 @@
                     </li>
                 </ul>
             </div>
-            
-            <autocomplete></autocomplete>
 
-<!--             <div class="container control">
-                <input class="input is-large" type="text" v-bind:placeholder="poisons[poison].name" v-model="input">
-            </div> -->
-            
+            <autocomplete v-bind:placeholder="poisons[poison].name"></autocomplete>
+
         </div>
     </div>
 
@@ -63,6 +67,9 @@
         </div>
     </div>
 </footer>
+
+
+
 
 
 <!--  -->
