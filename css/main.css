@@ -1,0 +1,174 @@
+/**/
+
+html,
+body,
+#app {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.t-black {
+    color: #111 !important;
+}
+
+.t-grey-darker {
+    color: #222324 !important;
+}
+
+.t-grey-dark {
+    color: #69707a !important;
+}
+
+.t-grey {
+    color: #aeb1b5 !important;
+}
+
+.t-grey-light {
+    color: #d3d6db !important;
+}
+
+.t-grey-lighter {
+    color: #f5f7fa !important;
+}
+
+.t-white {
+    color: #fff !important;
+}
+
+.t-blue {
+    color: #42afe3 !important;
+}
+
+.t-green {
+    color: #97cd76 !important;
+}
+
+.t-orange {
+    color: #f68b39 !important;
+}
+
+.t-purple {
+    color: #847bb9 !important;
+}
+
+.t-red {
+    color: #ed6c63 !important;
+}
+
+.t-turquoise {
+    color: #1fc8db !important;
+}
+
+.t-yellow {
+    color: #fce473 !important;
+}
+
+.t-75 {
+    font-size: 75% !important;
+}
+
+.t-100 {
+    font-size: 100% !important;
+}
+
+.t-125 {
+    font-size: 125% !important;
+}
+
+.t-150 {
+    font-size: 150% !important;
+}
+
+.t-175 {
+    font-size: 175% !important;
+}
+
+.t-200 {
+    font-size: 200% !important;
+}
+
+.t-250 {
+    font-size: 250% !important;
+}
+
+.t-300 {
+    font-size: 300% !important;
+}
+
+.t-bold {
+    font-weight: 400 !important;
+}
+
+.t-bolder {
+    font-weight: 600 !important;
+}
+
+.t-under {
+    text-decoration: underline !important;
+}
+
+.t-italic {
+    font-style: italic !important;
+}
+
+.t-left {
+    text-align: left !important;
+}
+
+.t-center {
+    text-align: center !important;
+}
+
+.t-right {
+    text-align: right !important;
+}
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
