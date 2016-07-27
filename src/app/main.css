@@ -98,7 +98,7 @@ footer {
 }
 
 .autocomplete-table td {
-	font-size: 125%;
+    font-size: 125%;
 }
 
 .autocomplete-table tr:hover {
@@ -106,7 +106,7 @@ footer {
 }
 
 .autocomplete-highlight {
-	color: #fce473;
+    color: #fce473;
 }
 
 
@@ -375,12 +375,25 @@ aside.menu {
     width: 100% !important;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 footer a {
     color: #42afe3 !important;
 }
 
 footer a:visited {
     color: #42afe3 !important;
+}
+
+.button > span.icon > i.ion-icon,
+.button > i.ion-icon {
+    font-size: 115%;
+}
+
+.button > span.icon.icon-only {
+    margin-left: 0px;
 }
 
 

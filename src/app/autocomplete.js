@@ -1,6 +1,7 @@
 //
 
 import {
+	isUndefined,
 	isEmpty,
 	includes,
 	trim,
@@ -42,7 +43,9 @@ module.exports = {
 		'autocomplete-item': {
 			params: [ 'focusindex' ],
 			bind: function () {
-				this.index = parseInt( this.params.focusindex )
+				let index = parseInt( this.params.focusindex )
+				this.index = index
+				this.el.index = index
 			},
 			update: function ( newv, oldv ) {
 				if ( newv == this.index ) {
@@ -50,6 +53,9 @@ module.exports = {
 				} else if ( oldv == this.index ) {
 					this.el.blur()
 				}
+			},
+			unbind: function () {
+				this.el.index = null
 			},
 		},
 	},
@@ -78,12 +84,15 @@ module.exports = {
 
 	methods: {
 
-		mouseover: function () {
-			// console.info( 'mouseover >' )
+		openItem: function ( evt ) {
+			let index = ( isUndefined( evt ) ) ? this.focused : evt.currentTarget.index
+			console.log( 'index >', index )
+
+			// 
+			// console.warn( 'DO MAGICAL THINGS!!!', item )
 		},
 
 		stopScroll: function ( evt ) {
-			console.info( 'stopScroll >', evt )
 			let keys = [ 9, 33, 34, 35, 36, 37, 38, 39, 40 ] // tab, page, and arrow keys
 			let key = evt.which
 			if ( includes( keys, key ) ) {
@@ -109,7 +118,7 @@ module.exports = {
 				return false
 
 			} else if ( key == 13 ) { // enter key
-				console.warn( 'DO MAGICAL THINGS!!!', this.results[ this.focused ] )
+				this.openItem()
 			}
 
 		},

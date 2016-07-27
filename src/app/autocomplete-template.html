@@ -15,12 +15,12 @@
         <table class="table is-narrow autocomplete-table">
             <thead>
                 <tr>
-                    <th width="150">Name</th>
-                    <th width="50">HP</th>
-                    <th width="100">Type</th>
-                    <th width="100">Weakness</th>
-                    <th width="100">Resists</th>
-                    <th width="100">Deck Set</th>
+                    <th width="150"><i class="ion-icon icon-contact t-200"></i> Name</th>
+                    <th width="50"><i class="ion-icon icon-medkit t-200"></i> HP</th>
+                    <th width="100"><i class="ion-icon icon-body t-200"></i> Type</th>
+                    <th width="100"><i class="ion-icon icon-thumbs-down t-200"></i> Weakness</th>
+                    <th width="100"><i class="ion-icon icon-thumbs-up t-200"></i> Resists</th>
+                    <th width="100"><i class="ion-icon icon-albums t-200"></i> Deck Set</th>
                 </tr>
             </thead>
         </table>
@@ -29,8 +29,8 @@
 
 <div v-show="results.length != 0" class="autocomplete-wrapper message-body animated" transition="fade-results"
     v-on:keydown="stopScroll">
-    <div class="media autocomplete-item animated" v-for="item in results" v-autocomplete-item="focused" v-bind:focusindex="$index"
-        tabindex="0" v-on:focus="focused = $index" v-on:mouseover="mouseover" transition="item-stagger" stagger="50">
+    <div class="media autocomplete-item pointer animated" v-for="item in results" v-autocomplete-item="focused" v-bind:focusindex="$index"
+        tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger" stagger="50">
         <figure class="media-left">
             <div class="image is-48x48">
                 <img v-bind:src="item.imageUrl">

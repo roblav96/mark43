@@ -6,7 +6,6 @@ import {
 } from 'lodash'
 import Vue from 'vue'
 import Vuex from 'vuex'
-import db from './db'
 
 Vue.use( Vuex )
 
