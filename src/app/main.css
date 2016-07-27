@@ -23,6 +23,11 @@ header {
     background-color: #42afe3 !important;
 }
 
+header div.nav-item.animated {
+    position: absolute;
+    right: 0px;
+}
+
 footer {
     position: fixed;
     bottom: 0px;
@@ -105,6 +110,11 @@ footer {
     background-color: inherit;
 }
 
+.autocomplete-table td:nth-child(1) > p {
+    font-size: 66%;
+    line-height: 100%;
+}
+
 .autocomplete-highlight {
     color: #fce473;
 }
@@ -157,7 +167,7 @@ aside.menu {
     top: 0px;
     height: 0.5rem;
     width: 25%;
-    z-index: 99;
+    z-index: 99999999;
     will-change: transform, opacity;
 }
 
@@ -230,6 +240,78 @@ aside.menu {
 .progging {
     animation-iteration-count: infinite;
     animation-name: progging;
+    opacity: 1;
+    animation-duration: 2s;
+}
+
+
+/*
+	AUTOCOMPLETE PROG
+*/
+
+.autocomplete-prog {
+    width: 25%;
+    height: 0.5rem;
+    background-color: red;
+    margin: 0px;
+    padding: 0px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+    background-color: #f5f7fa;
+    will-change: transform, opacity;
+}
+
+@keyframes autocomplete-success {
+    0% {
+        transform: translate3d(300%, 0, 0) scaleX(1);
+    }
+    100% {
+        transform: translate3d(150%, 0, 0) scaleX(4);
+    }
+}
+
+.autocomplete-success {
+    background-color: #97cd76;
+    animation-name: autocomplete-success;
+    opacity: 0;
+    animation-duration: 1s;
+    transition: opacity 1s ease-in;
+}
+
+@keyframes autocomplete-error {
+    0% {
+        opacity: 1;
+        transform: translate3d(300%, 0, 0) scaleX(1);
+    }
+    75% {
+        opacity: 1;
+        transform: translate3d(150%, 0, 0) scaleX(4);
+    }
+}
+
+.autocomplete-error {
+    background-color: #ed6c63;
+    animation-name: autocomplete-error;
+    opacity: 0;
+    animation-duration: 1s;
+    transition: opacity 1s ease-in;
+}
+
+@keyframes autocomplete-progging {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        transform: translate3d(300%, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.autocomplete-progging {
+    animation-iteration-count: infinite;
+    animation-name: autocomplete-progging;
     opacity: 1;
     animation-duration: 2s;
 }
@@ -387,10 +469,49 @@ footer a:visited {
     color: #42afe3 !important;
 }
 
+.animateNone {
+    display: none !important;
+}
+
+@keyframes route-swap-in {
+    0% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes route-swap-out {
+    0% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0);
+    }
+}
+
+.route-swap-transition {
+    animation-duration: 0.5s;
+}
+
+.route-swap-enter {
+    animation-name: route-swap-in;
+}
+
+.route-swap-leave {
+    animation-name: route-swap-out;
+}
+
+.control.has-icon > i.ion-icon,
 .button > span.icon > i.ion-icon,
 .button > i.ion-icon {
     font-size: 115%;
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
+}
+
+.control.has-icon > i.ion-icon {
+    font-size: 220% !important;
 }
 
 .button > span.icon.icon-only {

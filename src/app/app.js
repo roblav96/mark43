@@ -3,11 +3,14 @@
 import {
 	random
 } from 'lodash'
+import Lockr from 'lockr'
+import axios from 'axios'
 import {
-	store_setDB,
+	store_prog,
 } from '../store'
 import autocomplete from './autocomplete.vue'
 import card from './card.vue'
+import item from './item.vue'
 
 
 
@@ -18,17 +21,19 @@ module.exports = {
 	components: {
 		autocomplete,
 		card,
+		item,
 	},
 
-	vuex: {
-		getters: {
-			progging: state => state.progging,
+	transitions: {
+		'swap-nav': {
+			enterClass: 'fadeInRight',
+			leaveClass: 'fadeOutRight',
 		},
 	},
 
 	data: function () {
 		return {
-			route: 'autocomplete',
+			route: Lockr.get( 'route' ) || 'autocomplete',
 		}
 	},
 
@@ -40,6 +45,7 @@ module.exports = {
 	methods: {
 
 		setRoute: function ( route ) {
+			Lockr.set( 'route', route )
 			this.route = route
 		},
 

@@ -2,79 +2,85 @@
 
 
 
+<div class="body container">
 
-
-<div class="control has-icon">
-    <input id="autocomplete" class="input is-large" type="text" placeholder="Search Pokemon..." v-model="input"
-        debounce="1000" v-on:keydown="inputKeydown">
-    <i class="fa ion-icon icon-search"></i>
-</div>
-
-<div v-show="results.length != 0" class="row autocomplete-table-header animated" transition="flip-header">
-    <div class="col-xs"></div>
-    <div class="col-xs">
-        <table class="table is-narrow autocomplete-table">
-            <thead>
-                <tr>
-                    <th width="150"><i class="ion-icon icon-contact t-200"></i> Name</th>
-                    <th width="50"><i class="ion-icon icon-medkit t-200"></i> HP</th>
-                    <th width="100"><i class="ion-icon icon-body t-200"></i> Type</th>
-                    <th width="100"><i class="ion-icon icon-thumbs-down t-200"></i> Weakness</th>
-                    <th width="100"><i class="ion-icon icon-thumbs-up t-200"></i> Resists</th>
-                    <th width="100"><i class="ion-icon icon-albums t-200"></i> Deck Set</th>
-                </tr>
-            </thead>
-        </table>
+    <div class="control has-icon marg-0">
+        <input id="autocomplete" class="input is-large" type="text" placeholder="Search Pokemon..." v-model="input"
+            debounce="1000" v-on:keydown="inputKeydown">
+        <i class="fa ion-icon icon-search"></i>
     </div>
-</div>
 
-<div v-show="results.length != 0" class="autocomplete-wrapper message-body animated" transition="fade-results"
-    v-on:keydown="stopScroll">
-    <div class="media autocomplete-item pointer animated" v-for="item in results" v-autocomplete-item="focused"
-        v-bind:focusindex="$index" tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger"
-        stagger="50">
-        <figure class="media-left">
-            <div class="image is-48x48">
-                <img v-bind:src="item.imageUrl">
-            </div>
-        </figure>
-        <div class="media-content">
-            <div class="content">
-                <table class="table is-narrow autocomplete-table">
-                    <tbody>
-                        <tr>
-                            <td width="150" class="t-150 t-white">
-                                <strong>{{{item.highlightedname}}}</strong>
-                            </td>
-                            <td width="50">{{item.hp}}</td>
-                            <td width="100">
-                                <p v-for="type in item.types">
-                                    {{type}}
-                                </p>
-                            </td>
-                            <td width="100">
-                                <p v-for="weak in item.weaknesses">
-                                    {{weak.value}} {{weak.type}}
-                                </p>
-                            </td>
-                            <td width="100">
-                                <p v-for="resist in item.resistances">
-                                    {{resist.value}} {{resist.type}}
-                                </p>
-                            </td>
-                            <td width="100">{{item.set}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="autocomplete-prog" v-bind:class="progging"></div>
+
+    <div v-show="results.length != 0" class="row autocomplete-table-header animated" transition="flip-header">
+        <div class="col-xs"></div>
+        <div class="col-xs">
+            <table class="table is-narrow autocomplete-table">
+                <thead>
+                    <tr>
+                        <th width="150"><i class="ion-icon icon-contact t-200"></i> Card</th>
+                        <th width="50"><i class="ion-icon icon-medkit t-200"></i> HP</th>
+                        <th width="100"><i class="ion-icon icon-body t-200"></i> Type</th>
+                        <th width="100"><i class="ion-icon icon-thumbs-down t-200"></i> Weakness</th>
+                        <th width="100"><i class="ion-icon icon-thumbs-up t-200"></i> Resists</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <div v-show="results.length != 0" class="autocomplete-wrapper message-body animated" transition="fade-results"
+        v-on:keydown="stopScroll">
+        <div class="media autocomplete-item pointer animated" v-for="item in results" v-autocomplete-item="focused"
+            v-bind:focusindex="$index" tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger"
+            stagger="50">
+            <figure class="media-left">
+                <div class="image is-48x48">
+                    <img v-bind:src="item.imageUrl">
+                </div>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <table class="table is-narrow autocomplete-table">
+                        <tbody>
+                            <tr>
+                                <td width="150" class="t-150 t-white">
+                                    <strong>{{{item.highlightedname}}}</strong>
+                                    <p>{{item.series}} - {{item.set}}</p>
+                                </td>
+                                <td width="50">{{item.hp}}</td>
+                                <td width="100">
+                                    <p v-for="type in item.types">
+                                        {{type}}
+                                    </p>
+                                </td>
+                                <td width="100">
+                                    <p v-for="weak in item.weaknesses">
+                                        {{weak.value}} {{weak.type}}
+                                    </p>
+                                </td>
+                                <td width="100">
+                                    <p v-for="resist in item.resistances">
+                                        {{resist.value}} {{resist.type}}
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
-<div v-show="isEmpty" class="content animated" transition="bounce-isEmpty">
-    <h1 class="t-white t-left t-bolder t-center">Unknown Pokemon. Go catch it!</h1>
+    <div v-show="isEmpty" class="content animated" transition="bounce-isEmpty">
+        <h1 class="t-white t-left t-bolder t-center">Unknown Pokemon "{{input}}"
+            <br>Go catch it!</h1>
+    </div>
+
+
+
 </div>
 
 

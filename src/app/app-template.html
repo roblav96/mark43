@@ -4,12 +4,6 @@
 
 
 
-<div id="prog" class="prog" v-bind:class="{ 'progging': progging }"></div>
-
-
-
-
-
 <section class="hero is-info">
 
     <header class="nav animated fadeInDown">
@@ -25,20 +19,25 @@
                 </span>
             </div>
             <div class="nav-right">
-                <span class="nav-item">
-                    <a class="button is-medium" v-on:click="setRoute('card')">
+                <div v-show="route == 'autocomplete'" class="nav-item animated" transition="swap-nav" v-on:click="setRoute('card')">
+                    <a class="button is-medium is-light">
                         <i class="ion-icon icon-construct"></i>
                         <span>View Card</span>
                     </a>
-                </span>
+                </div>
+                <div v-show="route == 'card'" class="nav-item animated" transition="swap-nav" v-on:click="setRoute('autocomplete')">
+                    <a class="button is-medium is-light">
+                        <i class="ion-icon icon-search"></i>
+                        <span>Pokemon</span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>
 
-    <div class="body container animated fadeIn">
 
-        <component v-bind:is="route"></component>
-
+    <div class="animated fadeIn">
+        <component v-bind:is="route" transition="route-swap" transition-mode="out-in"></component>
     </div>
 
 

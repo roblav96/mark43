@@ -3,10 +3,17 @@
 
 
 
+
 module.exports = {
 
+	vuex: {
+		getters: {
+			item: state => state.item,
+		},
+	},
+
 	ready: function () {
-		console.warn( 'CARD ready' )
+		console.warn( 'ITEM ready' )
 	},
 
 	methods: {

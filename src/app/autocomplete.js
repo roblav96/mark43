@@ -2,12 +2,22 @@
 
 import {
 	isUndefined,
+	map,
+	delay,
+	orderBy,
+	clone,
+	compact,
+	isFinite,
+	merge,
 	isEmpty,
+	uniqWith,
 	includes,
 	trim,
 } from 'lodash'
 import axios from 'axios'
-
+import {
+	store_setItem,
+} from '../store'
 
 
 
@@ -36,6 +46,9 @@ module.exports = {
 	vuex: {
 		getters: {
 
+		},
+		actions: {
+			store_setItem,
 		},
 	},
 
@@ -66,6 +79,11 @@ module.exports = {
 			results: [],
 			focused: 0,
 			isEmpty: false,
+			progging: {
+				'autocomplete-progging': false,
+				'autocomplete-success': false,
+				'autocomplete-error': false,
+			},
 		}
 	},
 
@@ -86,10 +104,18 @@ module.exports = {
 
 		openItem: function ( evt ) {
 			let index = ( isUndefined( evt ) ) ? this.focused : evt.currentTarget.index
-			console.log( 'index >', index )
+			let item = this.results[ index ]
 
-			// 
-			// console.warn( 'DO MAGICAL THINGS!!!', item )
+			/**
+			 *
+			 * we clone the item using JSON.parse( JSON.stringify( item ) ) to detach it
+			 * from this components reactive prototype/class properties/methods & DOM elements
+			 * allowing it to be GARBAGE COLLECTED when this component is destroyed
+			 *
+			 */
+			this.store_setItem( JSON.parse( JSON.stringify( item ) ) )
+			this.$dispatch( 'setRoute', 'item' )
+
 		},
 
 		stopScroll: function ( evt ) {
@@ -134,6 +160,8 @@ module.exports = {
 				return this.clearResults()
 			}
 
+			this.setProg( 'start' )
+
 			console.info( 'getResults >' )
 
 			let input = trim( this.input.toLowerCase() )
@@ -141,21 +169,24 @@ module.exports = {
 			axios.get( 'https://api.pokemontcg.io/v1/cards', {
 				params: {
 					name: input,
-					series: 'base|neo',
+					series: 'base|neo|EX',
 				}
 			} ).then( ( response ) => {
 
-				let results = response.data.cards
-				let i, len = results.length
-				for ( i = 0; i < len; i++ ) {
-					results[ i ].highlightedname = results[ i ].name.replace( new RegExp( input, 'gi' ), '<span class="autocomplete-highlight">$&</span>' )
-				}
+				let results = map( response.data.cards, function ( v, i ) {
+					if ( isFinite( v.nationalPokedexNumber ) ) {
+						v.highlightedname = v.name.replace( new RegExp( input, 'gi' ), '<span class="autocomplete-highlight">$&</span>' )
+						return v
+					}
+				} )
 
-				this.results = results
+				this.results = orderBy( compact( results ), 'name' )
 				this.isEmpty = isEmpty( this.results )
+				delay( this.setProg, 500, 'success' )
 
-			} ).catch( function ( err ) {
+			} ).catch( ( err ) => {
 				console.error( err )
+				this.setProg( 'error' )
 			} )
 
 		},
@@ -167,6 +198,32 @@ module.exports = {
 					this.isEmpty = false
 				}
 			}
+		},
+
+		setProg: function ( action ) {
+			let set = {
+				'autocomplete-progging': false,
+				'autocomplete-success': false,
+				'autocomplete-error': false,
+			}
+
+			clearTimeout( this.timeout )
+			this.timeout = delay( function ( progging, reset ) {
+				if ( progging[ 'autocomplete-progging' ] == false ) {
+					merge( progging, reset )
+				}
+			}, 1000, this.progging, clone( set ) )
+
+			if ( action == 'start' ) {
+				set[ 'autocomplete-progging' ] = true
+			} else if ( action == 'success' ) {
+				set[ 'autocomplete-success' ] = true
+			} else if ( action == 'error' ) {
+				set[ 'autocomplete-error' ] = true
+			}
+
+			merge( this.progging, set )
+
 		},
 
 	},
