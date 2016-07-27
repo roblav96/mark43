@@ -1,9 +1,10 @@
 //
 
 import {
-	store_setDB,
-} from '../store'
-import store from '../store'
+	isEmpty,
+	trim,
+} from 'lodash'
+import axios from 'axios'
 
 
 
@@ -13,13 +14,9 @@ module.exports = {
 
 	vuex: {
 		getters: {
-			db: state => state.db,
+
 		},
 	},
-
-	props: [
-		'placeholder',
-	],
 
 	data: function () {
 		return {
@@ -39,15 +36,31 @@ module.exports = {
 
 	},
 
-	events: {
-		'clearIt': function () {
-
-		},
-	},
-
 	methods: {
 
+		clearResults: function () {
+			console.info( 'clearResults >' )
+			this.results = []
+		},
 
+		getResults: function () {
+			if ( isEmpty( this.input ) ) {
+				return this.clearResults()
+			}
+
+			axios.get( 'https://api.pokemontcg.io/v1/cards', {
+				params: {
+					name: trim( this.input.toLowerCase() ),
+					series: 'base|neo|ex',
+				}
+			} ).then( ( response ) => {
+				this.results = response.data.cards
+				console.log( 'this.results[0] >', JSON.stringify( this.results[ 0 ], true, 4 ) )
+			} ).catch( function ( err ) {
+				console.error( err )
+			} )
+
+		},
 
 	},
 

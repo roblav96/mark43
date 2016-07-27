@@ -5,21 +5,24 @@
 	"private": true,
 	"scripts": {
 		"watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/build.js",
-		"serve": "watch-http-server ./dist -c 1 -a localhost",
+		"serve": "http-server ./dist -a localhost",
 		"dev": "npm-run-all --parallel watchify serve",
 		"build": "cross-env NODE_ENV=production browserify src/main.js | uglifyjs -c warnings=false -m > dist/build.js"
 	},
 	"dependencies": {
 		"watch-http-server": "*",
 		"axios": "*",
+		"lockr": "*",
+		"bluebird": "*",
 		"jimp": "*",
 		"lodash": "*",
 		"vue": "*",
 		"vuex": "*"
 	},
 	"devDependencies": {
-		"babel-core": "^6.0.0",
+		"babel-plugin-transform-bluebird": "*",
 		"babel-plugin-transform-runtime": "^6.0.0",
+		"babel-core": "^6.0.0",
 		"babel-preset-es2015": "^6.0.0",
 		"babel-preset-stage-2": "^6.0.0",
 		"babel-runtime": "^6.0.0",

@@ -11,51 +11,76 @@
 
 
 <section class="hero is-info">
-    <div class="hero-head animated fadeInDown">
-        <header class="nav">
-            <div class="container">
-                <div class="nav-left">
-                    <span class="nav-item t-200 t-bolder">
-                        Mark43 - Take Home Test
-                    </span>
-                </div>
-                <div class="nav-right">
-                    <span class="nav-item">
-                        <a class="button is-light">
-                            <span>Cheat Sheet</span>
-                        </a>
-                    </span>
-                </div>
+
+    <header class="nav animated fadeInDown">
+        <div class="container">
+            <div class="nav-left">
+                <span class="nav-item t-125 t-bolder">
+                    Mark43 - Take Home Test
+                </span>
             </div>
-        </header>
-    </div>
+            <div class="nav-center">
+                <span class="nav-item t-200 t-bolder">
+                    Pokemon Card Maker
+                </span>
+            </div>
+            <div class="nav-right">
+            </div>
+        </div>
+    </header>
 
-    <div class="hero-body animated fadeIn">
-        <div class="content is-large">
-            <h3 class="t-white t-center t-bolder marg-0">Pick your poison...</h3>
-
-            <div class="tabs is-centered is-boxed is-medium">
+    <!--     <aside class="menu col-xs hero is-warning">
+        <p class="menu-label">
+            Card
+        </p>
+        <ul class="menu-list">
+            <li>
+                <a>Team Settings</a>
+            </li>
+            <li>
+                <a class="is-active">Manage Your Team</a>
                 <ul>
-                    <li v-for="item in poisons" v-on:click="setPoison($index)" v-bind:class="{ 'is-active': poison == $index }">
-                        <a>
-                            <span>{{item.name}}</span>
-                        </a>
+                    <li>
+                        <a>Members</a>
+                    </li>
+                    <li>
+                        <a>Plugins</a>
+                    </li>
+                    <li>
+                        <a>Add a member</a>
                     </li>
                 </ul>
-            </div>
+            </li>
+            <li>
+                <a>Invitations</a>
+            </li>
+            <li>
+                <a>Authentication</a>
+            </li>
+        </ul>
+    </aside> -->
 
-            <autocomplete v-bind:placeholder="poisons[poison].name"></autocomplete>
+    <div class="body container animated fadeIn">
 
-        </div>
+        <autocomplete></autocomplete>
+
+<!--         <div class="content">
+            <h1 class="t-white t-left t-bolder">Search for Pokemon</h1>
+        </div> -->
+
     </div>
+
+
 
 </section>
 
 
 
+
+
 <footer class="animated fadeInUp">
     <div class="container">
-        <div class="content is-medium has-text-centered notification bg-white">
+        <div class="content is-medium has-text-centered notification message-body bg-white">
             <p class="t-grey-dark">
                 <span class="t-bolder">Robert Laverty</span> -
                 <a href="roblav96@gmail.com">roblav96@gmail.com</a> -

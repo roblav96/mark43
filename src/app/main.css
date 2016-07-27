@@ -16,10 +16,84 @@ body,
     background-color: #42afe3;
 }
 
+header {
+    position: fixed !important;
+    top: 0px;
+    width: 100%;
+    background-color: #42afe3 !important;
+}
+
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     width: 100%;
+}
+
+.body {
+    margin-top: 7.5rem;
+}
+
+
+/*
+	AUTOCOMPLETE
+*/
+
+.autocomplete-wrapper {
+    position: absolute;
+    background-color: #42afe3;
+    height: 25rem;
+    overflow-y: auto;
+    width: 100%;
+    border-color: white;
+}
+
+.autocomplete-item {
+    height: 6rem;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0px !important;
+}
+
+.autocomplete-item:hover {
+	background-color: #6ec2ea !important;
+}
+
+
+/*
+	SIDE MENU
+*/
+
+aside.menu {
+    position: absolute;
+    top: 5rem;
+    width: 15rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.menu-list a {
+    color: #69707a;
+}
+
+.menu-list a:hover {
+    background-color: #f5f7fa;
+    color: #1fc8db;
+}
+
+.menu-list a.is-active {
+    background-color: #1fc8db;
+    color: white;
+}
+
+.menu-list li ul {
+    border-left: 1px solid #d3d6db;
+}
+
+.menu-label {
+    color: #aeb1b5;
 }
 
 
@@ -41,6 +115,53 @@ footer {
     opacity: 0;
     transition: opacity 0.5s ease-in;
     background-color: #fff;
+}
+
+@keyframes prog-success {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(9, 1);
+    }
+    100% {
+        transform: scale(9, 1);
+    }
+}
+
+.prog-success {
+    background-color: #97cd76;
+    animation-name: prog-success;
+    left: 100%;
+    opacity: 0;
+    animation-duration: 1s;
+    transition: opacity 1s ease-in;
+}
+
+@keyframes prog-error {
+    0% {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+    25% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+        transform: scale(4, 1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(4, 1);
+    }
+}
+
+.prog-error {
+    background-color: #ed6c63;
+    animation-name: prog-error;
+    left: calc(50% - 12.5%);
+    opacity: 0;
+    animation-duration: 1s;
 }
 
 @keyframes progging {
@@ -189,6 +310,22 @@ footer {
 
 .bg-white {
     background-color: white !important;
+}
+
+.bg-orange {
+    background-color: #f68b39 !important;
+}
+
+.h-100 {
+    height: 100% !important;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.content.is-white * {
+	color: white;
 }
 
 footer a {

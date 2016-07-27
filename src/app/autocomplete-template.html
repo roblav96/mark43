@@ -4,8 +4,25 @@
 
 
 
-<div class="container control">
-    <input class="input is-large" type="text" v-bind:placeholder="placeholder" v-model="input">
+<div class="control">
+    <input class="input is-large" type="text" placeholder="Search Pokemon..." v-model="input" v-on:keyup="getResults | debounce 500">
+</div>
+
+<div v-show="results.length != 0" class="autocomplete-wrapper message-body">
+    <div class="media autocomplete-item" v-for="item in results">
+        <figure class="media-left">
+            <div class="image is-48x48">
+                <img v-bind:src="item.imageUrl">
+            </div>
+        </figure>
+        <div class="media-content">
+            <div class="content is-white">
+                <h1>
+                    <strong>{{item.name}}</strong>
+                </h1>
+            </div>
+        </div>
+    </div>
 </div>
 
 
