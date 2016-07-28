@@ -5,8 +5,17 @@ import autocomplete from '../autocomplete/autocomplete.vue'
 
 
 
+/**
+ *
+ * this is where you would import other components being used in the app-template.html
+ *
+ */
 
-module.exports = {
+
+
+
+
+export default {
 
 	components: {
 		autocomplete,

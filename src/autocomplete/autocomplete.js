@@ -33,7 +33,7 @@ import axios from 'axios'
 
 
 
-module.exports = {
+export default {
 
 	/**
 	 *
