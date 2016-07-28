@@ -5,6 +5,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "open http://localhost:4343/ & webpack-dev-server --inline --hot --port 4343",
+		"devserver": "open http://localhost:4343/ & webpack-dev-server --inline --hot --port 4343",
 		"build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
 	},
 	"dependencies": {
