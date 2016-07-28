@@ -15,7 +15,6 @@ import {
 	trim,
 } from 'lodash'
 import axios from 'axios'
-import Lockr from 'lockr'
 
 
 
@@ -65,7 +64,7 @@ module.exports = {
 
 	data: function () {
 		return {
-			input: Lockr.get( 'input' ) || '',
+			input: '',
 			results: [],
 			focused: 0,
 			isEmpty: false,
@@ -255,18 +254,7 @@ module.exports = {
 
 	},
 
-	beforeDestroy: function () {
-		Lockr.set( 'input', this.input )
-	},
-
 }
-
-/**
-	TODO:
-	- on enter down while typing goto first tabindex
-**/
-
-
 
 
 

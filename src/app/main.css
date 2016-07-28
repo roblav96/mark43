@@ -278,45 +278,6 @@ footer a {
 
 
 /*
-	SIDE MENU
-*/
-
-
-/*aside.menu {
-    position: absolute;
-    top: 5rem;
-    width: 15rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-}
-
-.menu-list a {
-    color: #69707a;
-}
-
-.menu-list a:hover {
-    background-color: #f5f7fa;
-    color: #1fc8db;
-}
-
-.menu-list a.is-active {
-    background-color: #1fc8db;
-    color: white;
-}
-
-.menu-list li ul {
-    border-left: 1px solid #d3d6db;
-}
-
-.menu-label {
-    color: #aeb1b5;
-}*/
-
-
-/*
 	ANIMATIONS
 */
 
@@ -337,6 +298,37 @@ footer a {
 
 .animateNone {
     display: none !important;
+}
+
+@keyframes swap-in {
+    0% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes swap-out {
+    0% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0);
+    }
+}
+
+.swap-transition {
+    transform-origin: 50% 0%;
+    animation-duration: 0.5s;
+}
+
+.swap-enter {
+    animation-name: swap-in;
+}
+
+.swap-leave {
+    animation-name: swap-out;
 }
 
 
@@ -432,6 +424,10 @@ footer a {
     font-size: 300% !important;
 }
 
+.t-400 {
+    font-size: 400% !important;
+}
+
 .t-bold {
     font-weight: 400 !important;
 }
@@ -518,79 +514,10 @@ footer a {
     cursor: pointer;
 }
 
-footer a {
-    color: #42afe3 !important;
-}
-
-footer a:visited {
-    color: #42afe3 !important;
-}
-
 
 /*
-	MOAR ANIMATIONS
+	BULMA FIXES
 */
-
-@keyframes route-swap-in {
-    0% {
-        transform: scaleY(0);
-    }
-    100% {
-        transform: scaleY(1);
-    }
-}
-
-@keyframes route-swap-out {
-    0% {
-        transform: scaleY(1);
-    }
-    100% {
-        transform: scaleY(0);
-    }
-}
-
-.route-swap-transition {
-    animation-duration: 0.5s;
-}
-
-.route-swap-enter {
-    animation-name: route-swap-in;
-}
-
-.route-swap-leave {
-    animation-name: route-swap-out;
-}
-
-@keyframes swap-in {
-    0% {
-        transform: scaleY(0);
-    }
-    100% {
-        transform: scaleY(1);
-    }
-}
-
-@keyframes swap-out {
-    0% {
-        transform: scaleY(1);
-    }
-    100% {
-        transform: scaleY(0);
-    }
-}
-
-.swap-transition {
-    transform-origin: 50% 0%;
-    animation-duration: 0.5s;
-}
-
-.swap-enter {
-    animation-name: swap-in;
-}
-
-.swap-leave {
-    animation-name: swap-out;
-}
 
 .control.has-icon > i.ion-icon,
 .button > span.icon > i.ion-icon,
