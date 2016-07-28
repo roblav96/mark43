@@ -19,10 +19,29 @@ import axios from 'axios'
 
 
 
+/*==================================
+=            0000000000            =
+==================================*/
+/**
+ *
+ * i sorta have line spacing OCD, sorry...
+ *
+ */
+/*==================================
+=            0000000000            =
+==================================*/
+
 
 
 module.exports = {
 
+	/**
+	 *
+	 * transition classes to be used on elements when they're hidden and shown
+	 *
+	 * uses Animate.css classes for simplicity
+	 *
+	 */
 	transitions: {
 		'flip-header': {
 			enterClass: 'flipInX',
@@ -31,10 +50,6 @@ module.exports = {
 		'item-zoom': {
 			enterClass: 'zoomIn',
 			leaveClass: 'zoomOut',
-		},
-		'item-stagger': {
-			enterClass: 'slideInDown',
-			leaveClass: 'slideOutUp',
 		},
 		'fade-clear': {
 			enterClass: 'fadeInLeft',
@@ -46,6 +61,17 @@ module.exports = {
 		},
 	},
 
+	/**
+	 *
+	 * we use this directive to decide whether to focus or blur the
+	 * resulting element in the dropdown results
+	 *
+	 * update() is called whenever this.focused gets changed
+	 *
+	 * we set this.focused to whichever index in the array of resulting items
+	 * is currently selected
+	 *
+	 */
 	directives: {
 		'autocomplete-item': {
 			params: [ 'focusindex' ],
@@ -67,6 +93,14 @@ module.exports = {
 		},
 	},
 
+	/**
+	 *
+	 * data contains all of our reactive variables
+	 *
+	 * changing the value of these variables results in the
+	 * modification of DOM elements in the templete weve provided
+	 *
+	 */
 	data: function () {
 		return {
 			input: '',
@@ -84,6 +118,12 @@ module.exports = {
 		}
 	},
 
+	/**
+	 *
+	 * computed properties are a convenient way to
+	 * produce dynamic reactive variables
+	 *
+	 */
 	computed: {
 		'showResults': function () {
 			return this.results.length != 0 && !this.viewing
@@ -93,12 +133,18 @@ module.exports = {
 		},
 	},
 
+	/**
+	 *
+	 * these variables are from our data object above
+	 * and execute on any modification
+	 *
+	 */
 	watch: {
 		'input': function ( v, ov ) {
 			if ( isEmpty( this.input ) ) {
 				return this.clearResults()
 			}
-			this.getResults()
+			this.getResults() // as the input binded to the <input> el changes, getResults is called
 		},
 	},
 
@@ -110,12 +156,17 @@ module.exports = {
 
 	methods: {
 
-		stopScroll: function ( evt ) {
+		stopScroll: function ( evt ) { // gets called whenever a key is pressed and a result item is focused
 			let keys = [ 9, 33, 34, 35, 36, 37, 38, 39, 40, 8, 27 ] // esc, backspace, tab, page, and arrow keys
 			let key = evt.which
 			if ( includes( keys, key ) ) {
 				evt.preventDefault()
 
+				/**
+				 *
+				 * here we are deciding in which direction the index shall be moved
+				 *
+				 */
 				let delta = 0
 				if ( key == 9 ) {
 					delta = ( evt.shiftKey ) ? -1 : 1
@@ -126,7 +177,7 @@ module.exports = {
 				}
 
 				if ( delta != 0 ) {
-					if ( this.focused == 0 && delta == -1 ) {
+					if ( this.focused == 0 && delta == -1 ) { // if weve hit the beginning, focus the <input> el
 						document.getElementById( 'autocomplete' ).focus()
 					}
 
@@ -145,13 +196,23 @@ module.exports = {
 
 		},
 
+		/*=================================
+		=            THIS.ITEM            =
+		=================================*/
+		/**
+		 *
+		 * this.item containes the pokemon card from results in which to display when
+		 * the user presses enter or clicks on it
+		 *
+		 */
+
 		inputFocused: function () {
 			this.stopVideo()
 			this.viewing = false
-			this.item = {}
+			this.item = {} // clear the item; since its reactive in the data obj from above, itll trigger hiding the item <div>
 		},
 
-		inputKeydown: function ( evt ) {
+		inputKeydown: function ( evt ) { // gets called when a key is pressed with the <input> focused
 			let key = evt.which
 			if ( key == 8 ) { // backspace
 				if ( isEmpty( this.results ) ) {
@@ -160,7 +221,16 @@ module.exports = {
 			} else if ( key == 40 ) { // down key
 				let pos = evt.target.selectionStart
 				if ( pos == this.input.length && !isEmpty( this.results ) ) {
-					document.getElementsByClassName( 'autocomplete-item' )[ 0 ].focus()
+
+					/**
+					 *
+					 * if cursor is at the end, focus the first available result
+					 *
+					 */
+					let els = document.getElementsByClassName( 'autocomplete-item' )
+					if ( isElement( els[ 0 ] ) ) {
+						els[ 0 ].focus()
+					}
 					evt.preventDefault()
 					return false
 				}
@@ -168,6 +238,12 @@ module.exports = {
 		},
 
 		itemKeydown: function ( evt ) {
+
+			/**
+			 *
+			 * when the chosen pokemon card item is focused and a key is pressed
+			 *
+			 */
 			let key = evt.which
 			if ( includes( [ 27, 38, 8, 40, 13, 9 ], key ) ) { // esc, up, down, backspace, enter, tab
 				this.clearItem()
@@ -182,7 +258,7 @@ module.exports = {
 			this.input = ''
 			this.viewing = false
 			this.item = {}
-			this.$nextTick( function () {
+			this.$nextTick( function () { // allow the DOM to update because 'autocomplete' is not in the DOM due to results being shown
 				document.getElementById( 'autocomplete' ).focus()
 			} )
 		},
@@ -228,12 +304,18 @@ module.exports = {
 			axios.get( 'https://api.pokemontcg.io/v1/cards', {
 				params: {
 					name: input,
-					series: 'base|neo|EX',
+					series: 'base|neo|EX', // we only want that good stuff
 				}
 			} ).then( ( response ) => {
 
 				let results = map( response.data.cards, function ( v, i ) {
 					if ( isFinite( v.nationalPokedexNumber ) ) {
+
+						/**
+						 *
+						 * this is where I highlight the result names from <input>
+						 *
+						 */
 						v.highlightedname = v.name.replace( new RegExp( input, 'gi' ), '<span class="autocomplete-highlight">$&</span>' )
 						return v
 					}
@@ -251,7 +333,7 @@ module.exports = {
 		},
 
 		setProg: function ( action ) {
-			let set = {
+			let set = { // the classes in main.css being used with @keyframes
 				'autocomplete-progging': false,
 				'autocomplete-success': false,
 				'autocomplete-error': false,

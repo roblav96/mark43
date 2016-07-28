@@ -37,9 +37,8 @@
 </div>
 
 <div v-show="showResults" class="autocomplete-wrapper message-body" v-on:keydown="stopScroll" transition="swap">
-    <div class="media autocomplete-item pointer animated animated-t025" v-for="item in results" v-autocomplete-item="focused"
-        v-bind:focusindex="$index" tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger"
-        enter-stagger="62">
+    <div class="media autocomplete-item pointer" v-for="item in results" v-autocomplete-item="focused" v-bind:focusindex="$index"
+        tabindex="0" v-on:focus="focused = $index" v-on:click="openItem">
         <figure class="media-left">
             <div class="image is-48x48">
                 <img v-bind:src="item.imageUrl">
