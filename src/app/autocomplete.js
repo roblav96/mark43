@@ -20,6 +20,7 @@ import Lockr from 'lockr'
 
 
 
+
 module.exports = {
 
 	transitions: {
@@ -27,17 +28,13 @@ module.exports = {
 			enterClass: 'flipInX',
 			leaveClass: 'animateNone',
 		},
-		'fade-results': {
-			enterClass: 'fadeIn',
-			leaveClass: 'fadeOut',
-		},
-		'fade-item': {
-			enterClass: 'fadeIn',
-			leaveClass: 'animateNone',
+		'item-zoom': {
+			enterClass: 'zoomIn',
+			leaveClass: 'zoomOut',
 		},
 		'item-stagger': {
-			enterClass: 'flipInX',
-			leaveClass: 'flipOutX',
+			enterClass: 'slideInDown',
+			leaveClass: 'slideOutUp',
 		},
 		'bounce-isEmpty': {
 			enterClass: 'bounceIn',
@@ -105,21 +102,6 @@ module.exports = {
 
 	methods: {
 
-		openItem: function ( evt ) {
-			let index = ( isUndefined( evt ) ) ? this.focused : evt.currentTarget.index
-			this.item = this.results[ index ]
-			console.log( 'this.item >', JSON.stringify( this.item, true, 4 ) )
-			this.viewing = true
-			this.$nextTick( function () { // allow the DOM to update because 'autocomplete_item' is not in the DOM due to results being shown
-				document.getElementById( 'autocomplete_item' ).focus()
-			} )
-		},
-
-		inputFocused: function () {
-			this.viewing = false
-			this.item = {}
-		},
-
 		stopScroll: function ( evt ) {
 			let keys = [ 9, 33, 34, 35, 36, 37, 38, 39, 40, 8, 27 ] // esc, backspace, tab, page, and arrow keys
 			let key = evt.which
@@ -155,6 +137,11 @@ module.exports = {
 
 		},
 
+		inputFocused: function () {
+			this.viewing = false
+			this.item = {}
+		},
+
 		inputKeydown: function ( evt ) {
 			let key = evt.which
 			if ( key == 8 ) { // backspace
@@ -174,20 +161,28 @@ module.exports = {
 		itemKeydown: function ( evt ) {
 			let key = evt.which
 			if ( includes( [ 27, 38, 8, 40, 13 ], key ) ) { // esc, up, down, backspace, enter
-				// if ( includes( [ 27, 38, 8, 40, 37, 39 ], key ) ) { // esc, up, down, backspace
-				// 	if ( includes( [ 37, 39 ], key ) ) { // left, right keys
-				// 		let delta = ( key == 37 ) ? -1 : +1
-				// 		this.item = this.results[ this.focused + delta ]
-				// 	} else {
-				this.viewing = false
-				this.item = {}
-				this.$nextTick( function () {
-						document.getElementsByClassName( 'autocomplete-item' )[ this.focused ].focus()
-					} )
-					// }
+				this.clearItem()
 				evt.preventDefault()
 				return false
 			}
+		},
+
+		clearItem: function () {
+			this.viewing = false
+			this.item = {}
+			this.$nextTick( function () {
+				document.getElementsByClassName( 'autocomplete-item' )[ this.focused ].focus()
+			} )
+		},
+
+		openItem: function ( evt ) {
+			let index = ( isUndefined( evt ) ) ? this.focused : evt.currentTarget.index
+			this.item = this.results[ index ]
+			console.log( 'this.item >', JSON.stringify( this.item, true, 4 ) )
+			this.viewing = true
+			this.$nextTick( function () { // allow the DOM to update because 'autocomplete_item' is not in the DOM due to results being shown
+				document.getElementById( 'autocomplete_item' ).focus()
+			} )
 		},
 
 		clearResults: function () {

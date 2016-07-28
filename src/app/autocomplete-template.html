@@ -30,11 +30,10 @@
         </div>
     </div>
 
-    <div v-show="showResults" class="autocomplete-wrapper message-body animated animated-t025" transition="fade-results"
-        v-on:keydown="stopScroll">
-        <div class="media autocomplete-item pointer animated" v-for="item in results" v-autocomplete-item="focused"
+    <div v-show="showResults" class="autocomplete-wrapper message-body" v-on:keydown="stopScroll" transition="swap">
+        <div class="media autocomplete-item pointer animated animated-t025" v-for="item in results" v-autocomplete-item="focused"
             v-bind:focusindex="$index" tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger"
-            enter-stagger="50" leave-stagger="10">
+            enter-stagger="62">
             <figure class="media-left">
                 <div class="image is-48x48">
                     <img v-bind:src="item.imageUrl">
@@ -84,11 +83,11 @@
 
 
 
-    <div id="autocomplete_item" v-show="!showResults && item.name" class="animated animated-t025 outline-0"
-        transition="fade-item" tabindex="0" v-on:keydown="itemKeydown">
+    <div id="autocomplete_item" v-show="!showResults && item.name" class="outline-0 pointer animated animated-t05" tabindex="0"
+        transition="item-zoom" v-on:keydown="itemKeydown" v-on:click="clearItem">
         <div class="item-row">
 
-            <img v-bind:src="item.imageUrl" class="pointer">
+            <img v-bind:src="item.imageUrl">
 
             <div class="content">
 
@@ -160,22 +159,18 @@
                     <tbody>
                         <tr>
                             <td>Ability</td>
-                            <td>
+                            <td class="t-normal">
                                 <u>{{item.ability.name}}</u> {{item.ability.text}}
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <a class="button is-success is-inverted is-outlined icon-only">
-                    <span class="ion-icon icon-add t-200 t-bolder"></span>
-                </a>
-
                 <table v-if="item.attacks" class="table is-narrow">
                     <tbody>
                         <tr class="t-grey-lighter t-italic">
                             <td>Cost</td>
-                            <td>Attack</td>
+                            <td class="t-normal">Attack</td>
                             <td>Description</td>
                             <td>Damage</td>
                             <td width="75">Cvt Cost</td>
@@ -193,8 +188,6 @@
                         </tr>
                     </tbody>
                 </table>
-
-
 
             </div>
 
