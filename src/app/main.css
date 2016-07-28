@@ -23,19 +23,57 @@ header {
     background-color: #42afe3 !important;
 }
 
-header div.nav-item.animated {
+header div.nav-left > div.nav-item.animated {
+    position: absolute;
+    left: 0px;
+    height: 100%;
+}
+
+header div.nav-right > div.nav-item.animated {
     position: absolute;
     right: 0px;
+    height: 100%;
 }
 
 footer {
     position: fixed;
-    bottom: 0px;
-    width: 100%;
+    top: 0px;
+    z-index: 9;
+}
+
+footer div.content {
+    padding: 7px 10px;
+}
+
+footer p {
+    line-height: 125%;
+}
+
+footer a {
+    border: none !important;
 }
 
 .body {
     margin-top: 7.5rem;
+}
+
+
+/*
+	ITEM
+*/
+
+.item-row {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+.item-row > div {
+    border: 1px solid white;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    padding: 1rem;
 }
 
 
@@ -51,6 +89,7 @@ footer {
     overflow-x: hidden;
     width: 100%;
     border-color: white;
+    border: 1px solid white;
 }
 
 .autocomplete-item {
@@ -121,138 +160,12 @@ footer {
 
 
 /*
-	SIDE MENU
-*/
-
-aside.menu {
-    position: absolute;
-    top: 5rem;
-    width: 15rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-}
-
-.menu-list a {
-    color: #69707a;
-}
-
-.menu-list a:hover {
-    background-color: #f5f7fa;
-    color: #1fc8db;
-}
-
-.menu-list a.is-active {
-    background-color: #1fc8db;
-    color: white;
-}
-
-.menu-list li ul {
-    border-left: 1px solid #d3d6db;
-}
-
-.menu-label {
-    color: #aeb1b5;
-}
-
-
-/*
-	PROG
-*/
-
-#prog {
-    position: fixed;
-    top: 0px;
-    height: 0.5rem;
-    width: 25%;
-    z-index: 99999999;
-    will-change: transform, opacity;
-}
-
-.prog {
-    left: 0px;
-    opacity: 0;
-    transition: opacity 0.5s ease-in;
-    background-color: #fff;
-}
-
-@keyframes prog-success {
-    0% {
-        transform: scale(1, 1);
-    }
-    50% {
-        transform: scale(9, 1);
-    }
-    100% {
-        transform: scale(9, 1);
-    }
-}
-
-.prog-success {
-    background-color: #97cd76;
-    animation-name: prog-success;
-    left: 100%;
-    opacity: 0;
-    animation-duration: 1s;
-    transition: opacity 1s ease-in;
-}
-
-@keyframes prog-error {
-    0% {
-        opacity: 1;
-        transform: scale(1, 1);
-    }
-    25% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 1;
-        transform: scale(4, 1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(4, 1);
-    }
-}
-
-.prog-error {
-    background-color: #ed6c63;
-    animation-name: prog-error;
-    left: calc(50% - 12.5%);
-    opacity: 0;
-    animation-duration: 1s;
-}
-
-@keyframes progging {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-    50% {
-        transform: translate3d(300%, 0, 0);
-    }
-    100% {
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-.progging {
-    animation-iteration-count: infinite;
-    animation-name: progging;
-    opacity: 1;
-    animation-duration: 2s;
-}
-
-
-/*
 	AUTOCOMPLETE PROG
 */
 
 .autocomplete-prog {
     width: 25%;
     height: 0.5rem;
-    background-color: red;
     margin: 0px;
     padding: 0px;
     opacity: 0;
@@ -315,6 +228,45 @@ aside.menu {
     opacity: 1;
     animation-duration: 2s;
 }
+
+
+/*
+	SIDE MENU
+*/
+
+
+/*aside.menu {
+    position: absolute;
+    top: 5rem;
+    width: 15rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.menu-list a {
+    color: #69707a;
+}
+
+.menu-list a:hover {
+    background-color: #f5f7fa;
+    color: #1fc8db;
+}
+
+.menu-list a.is-active {
+    background-color: #1fc8db;
+    color: white;
+}
+
+.menu-list li ul {
+    border-left: 1px solid #d3d6db;
+}
+
+.menu-label {
+    color: #aeb1b5;
+}*/
 
 
 /*
@@ -441,12 +393,40 @@ aside.menu {
     margin: 0px !important;
 }
 
+.marg-0-x {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.marg-0-y {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.pad-0 {
+    padding: 0px !important;
+}
+
+.pad-0-x {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.pad-0-y {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
 .bg-white {
     background-color: white !important;
 }
 
 .bg-orange {
     background-color: #f68b39 !important;
+}
+
+.outline-0 {
+    outline: none !important;
 }
 
 .h-100 {

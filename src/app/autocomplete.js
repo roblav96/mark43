@@ -27,7 +27,7 @@ module.exports = {
 	transitions: {
 		'flip-header': {
 			enterClass: 'flipInX',
-			leaveClass: 'flipOutX',
+			leaveClass: 'animateNone',
 		},
 		'fade-results': {
 			enterClass: 'fadeIn',
@@ -84,7 +84,15 @@ module.exports = {
 				'autocomplete-success': false,
 				'autocomplete-error': false,
 			},
+			item: {},
+			viewing: false,
 		}
+	},
+
+	computed: {
+		'showResults': function () {
+			return this.results.length != 0 && !this.viewing
+		},
 	},
 
 	watch: {
@@ -98,28 +106,29 @@ module.exports = {
 
 	ready: function () {
 		console.warn( 'autocomplete ready' )
+		document.getElementById( 'autocomplete' ).focus()
+		delay( this.getResults, 500 ) // let the component change transition finish first
 	},
 
 	methods: {
 
 		openItem: function ( evt ) {
 			let index = ( isUndefined( evt ) ) ? this.focused : evt.currentTarget.index
-			let item = this.results[ index ]
+			this.item = this.results[ index ]
+			this.viewing = true
+			this.$nextTick( function () { // allow the DOM to update because 'autocomplete_item' is not in the DOM due to results being shown
+				document.getElementById( 'autocomplete_item' ).focus()
+			} )
+		},
 
-			/**
-			 *
-			 * we clone the item using JSON.parse( JSON.stringify( item ) ) to detach it
-			 * from this components reactive prototype/class properties/methods & DOM elements
-			 * allowing it to be GARBAGE COLLECTED when this component is destroyed
-			 *
-			 */
-			this.store_setItem( JSON.parse( JSON.stringify( item ) ) )
-			this.$dispatch( 'setRoute', 'item' )
-
+		inputFocused: function () {
+			this.viewing = false
+			this.item = {}
 		},
 
 		stopScroll: function ( evt ) {
-			let keys = [ 9, 33, 34, 35, 36, 37, 38, 39, 40 ] // tab, page, and arrow keys
+			console.log( 'stopScroll >', evt )
+			let keys = [ 9, 33, 34, 35, 36, 37, 38, 39, 40, 8, 27 ] // esc, backspace, tab, page, and arrow keys
 			let key = evt.which
 			if ( includes( keys, key ) ) {
 				evt.preventDefault()
@@ -141,12 +150,53 @@ module.exports = {
 					this.focused = Math.min( this.focused + delta, this.results.length - 1 ) // so you cant tab out of the box
 				}
 
+				if ( includes( [ 8, 27 ], key ) ) { // backspace/esc should skip back to input?? idk, it feels natural
+					document.getElementById( 'autocomplete' ).focus()
+				}
+
 				return false
 
 			} else if ( key == 13 ) { // enter key
 				this.openItem()
 			}
 
+		},
+
+		inputKeydown: function ( evt ) {
+			console.log( 'inputKeydown >', evt )
+			let key = evt.which
+			if ( key == 8 ) { // backspace
+				if ( isEmpty( this.results ) ) {
+					this.isEmpty = false
+				}
+			} else if ( key == 40 ) { // down key
+				let pos = evt.target.selectionStart
+				if ( pos == this.input.length && !isEmpty( this.results ) ) {
+					document.getElementsByClassName( 'autocomplete-item' )[ 0 ].focus()
+					evt.preventDefault()
+					return false
+				}
+			}
+		},
+
+		itemKeydown: function ( evt ) {
+			console.log( 'itemKeydown >', evt )
+			let key = evt.which
+			if ( includes( [ 27, 38, 8, 40, 13 ], key ) ) { // esc, up, down, backspace, enter
+				// if ( includes( [ 27, 38, 8, 40, 37, 39 ], key ) ) { // esc, up, down, backspace
+				// 	if ( includes( [ 37, 39 ], key ) ) { // left, right keys
+				// 		let delta = ( key == 37 ) ? -1 : +1
+				// 		this.item = this.results[ this.focused + delta ]
+				// 	} else {
+				this.viewing = false
+				this.item = {}
+				this.$nextTick( function () {
+						document.getElementsByClassName( 'autocomplete-item' )[ this.focused ].focus()
+					} )
+					// }
+				evt.preventDefault()
+				return false
+			}
 		},
 
 		clearResults: function () {
@@ -191,15 +241,6 @@ module.exports = {
 
 		},
 
-		inputKeydown: function ( evt ) {
-			let key = evt.which
-			if ( key == 8 ) { // backspace
-				if ( isEmpty( this.results ) ) {
-					this.isEmpty = false
-				}
-			}
-		},
-
 		setProg: function ( action ) {
 			let set = {
 				'autocomplete-progging': false,
@@ -225,6 +266,10 @@ module.exports = {
 			merge( this.progging, set )
 
 		},
+
+	},
+
+	beforeDestroy: function () {
 
 	},
 

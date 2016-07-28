@@ -6,13 +6,13 @@
 
     <div class="control has-icon marg-0">
         <input id="autocomplete" class="input is-large" type="text" placeholder="Search Pokemon..." v-model="input"
-            debounce="1000" v-on:keydown="inputKeydown">
+            debounce="1000" v-on:keydown="inputKeydown" v-on:focus="inputFocused">
         <i class="fa ion-icon icon-search"></i>
     </div>
 
     <div class="autocomplete-prog" v-bind:class="progging"></div>
 
-    <div v-show="results.length != 0" class="row autocomplete-table-header animated" transition="flip-header">
+    <div v-show="this.results.length != 0" class="row autocomplete-table-header animated" transition="flip-header">
         <div class="col-xs"></div>
         <div class="col-xs">
             <table class="table is-narrow autocomplete-table">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div v-show="results.length != 0" class="autocomplete-wrapper message-body animated" transition="fade-results"
+    <div v-show="showResults" class="autocomplete-wrapper message-body animated" transition="fade-results"
         v-on:keydown="stopScroll">
         <div class="media autocomplete-item pointer animated" v-for="item in results" v-autocomplete-item="focused"
             v-bind:focusindex="$index" tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger"
@@ -75,8 +75,20 @@
 
 
     <div v-show="isEmpty" class="content animated" transition="bounce-isEmpty">
-        <h1 class="t-white t-left t-bolder t-center">Unknown Pokemon "{{input}}"
-            <br>Go catch it!</h1>
+        <h1 class="t-white t-left t-bolder t-center">
+            Unknown Pokemon "{{input}}"
+            <br> Go catch it!
+        </h1>
+    </div>
+
+
+
+    <div id="autocomplete_item" v-show="!showResults && item.name" class="item-row animated outline-0" transition="fade-results"
+        tabindex="0" v-on:keydown="itemKeydown">
+        <img v-bind:src="item.imageUrl">
+        <div class="content">
+            <h1>item</h1>
+        </div>
     </div>
 
 

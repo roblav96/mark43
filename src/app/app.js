@@ -1,7 +1,7 @@
 //
 
 import {
-	random
+	includes,
 } from 'lodash'
 import Lockr from 'lockr'
 import axios from 'axios'
@@ -25,7 +25,11 @@ module.exports = {
 	},
 
 	transitions: {
-		'swap-nav': {
+		'swap-nav-left': {
+			enterClass: 'fadeInLeft',
+			leaveClass: 'fadeOutLeft',
+		},
+		'swap-nav-right': {
 			enterClass: 'fadeInRight',
 			leaveClass: 'fadeOutRight',
 		},
@@ -47,6 +51,18 @@ module.exports = {
 		setRoute: function ( route ) {
 			Lockr.set( 'route', route )
 			this.route = route
+		},
+
+		showNav: function ( button ) {
+			if ( button == 'card' ) {
+				return includes( [ 'autocomplete', 'item' ], this.route )
+			} else if ( button == 'autocomplete' ) {
+				return this.route == 'card'
+			} else if ( button == 'back' ) {
+				return this.route == 'item'
+			} else if ( button == 'logo' ) {
+				return includes( [ 'autocomplete', 'card' ], this.route )
+			}
 		},
 
 	},
