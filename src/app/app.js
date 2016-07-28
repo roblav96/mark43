@@ -10,7 +10,6 @@ import {
 } from '../store'
 import autocomplete from './autocomplete.vue'
 import card from './card.vue'
-import item from './item.vue'
 
 
 
@@ -21,7 +20,6 @@ module.exports = {
 	components: {
 		autocomplete,
 		card,
-		item,
 	},
 
 	transitions: {

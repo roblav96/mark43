@@ -15,6 +15,7 @@ import {
 	trim,
 } from 'lodash'
 import axios from 'axios'
+import Lockr from 'lockr'
 
 
 
@@ -29,6 +30,10 @@ module.exports = {
 		'fade-results': {
 			enterClass: 'fadeIn',
 			leaveClass: 'fadeOut',
+		},
+		'fade-item': {
+			enterClass: 'fadeIn',
+			leaveClass: 'animateNone',
 		},
 		'item-stagger': {
 			enterClass: 'flipInX',
@@ -63,7 +68,7 @@ module.exports = {
 
 	data: function () {
 		return {
-			input: '',
+			input: Lockr.get( 'input' ) || '',
 			results: [],
 			focused: 0,
 			isEmpty: false,
@@ -256,7 +261,7 @@ module.exports = {
 	},
 
 	beforeDestroy: function () {
-
+		Lockr.set( 'input', this.input )
 	},
 
 }

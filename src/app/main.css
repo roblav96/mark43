@@ -32,7 +32,6 @@ header div.nav-left > div.nav-item.animated {
 header div.nav-right > div.nav-item.animated {
     position: absolute;
     right: 0px;
-    height: 100%;
 }
 
 footer {
@@ -71,11 +70,20 @@ footer a {
     flex-direction: row;
 }
 
+.item-row > img {
+    width: 245px;
+    height: 342px;
+}
+
 .item-row > div {
-    border: 1px solid white;
     -webkit-flex-grow: 1;
     flex-grow: 1;
     padding: 1rem;
+}
+
+.item-row table {
+    background-color: inherit;
+    color: white;
 }
 
 
@@ -126,6 +134,15 @@ footer a {
 
 .autocomplete-wrapper::-webkit-scrollbar-thumb {
     background-color: white;
+}
+
+.autocomplete-table-header {
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+.autocomplete-table-header-opacity {
+    opacity: 0;
 }
 
 .autocomplete-table-header > div:nth-child(1) {
@@ -273,6 +290,30 @@ footer a {
 .menu-label {
     color: #aeb1b5;
 }*/
+
+
+/*
+	ANIMATIONS
+*/
+
+.animated-t025 {
+    -webkit-animation-duration: 0.25s !important;
+    animation-duration: 0.25s !important;
+}
+
+.animated-t05 {
+    -webkit-animation-duration: 0.5s !important;
+    animation-duration: 0.5s !important;
+}
+
+.animated-t1 {
+    -webkit-animation-duration: 1s !important;
+    animation-duration: 1s !important;
+}
+
+.animateNone {
+    display: none !important;
+}
 
 
 /*
@@ -453,10 +494,6 @@ footer a {
 
 footer a:visited {
     color: #42afe3 !important;
-}
-
-.animateNone {
-    display: none !important;
 }
 
 @keyframes route-swap-in {

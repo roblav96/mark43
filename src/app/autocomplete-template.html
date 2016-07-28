@@ -12,7 +12,8 @@
 
     <div class="autocomplete-prog" v-bind:class="progging"></div>
 
-    <div v-show="this.results.length != 0" class="row autocomplete-table-header animated" transition="flip-header">
+    <div v-show="this.results.length != 0" class="row autocomplete-table-header animated" transition="flip-header"
+        v-bind:class="{ 'autocomplete-table-header-opacity': viewing }">
         <div class="col-xs"></div>
         <div class="col-xs">
             <table class="table is-narrow autocomplete-table">
@@ -22,14 +23,14 @@
                         <th width="50"><i class="ion-icon icon-medkit t-200"></i> HP</th>
                         <th width="100"><i class="ion-icon icon-body t-200"></i> Type</th>
                         <th width="100"><i class="ion-icon icon-thumbs-down t-200"></i> Weakness</th>
-                        <th width="100"><i class="ion-icon icon-thumbs-up t-200"></i> Resists</th>
+                        <th width="100"><i class="ion-icon icon-thumbs-up t-200"></i> Resistance</th>
                     </tr>
                 </thead>
             </table>
         </div>
     </div>
 
-    <div v-show="showResults" class="autocomplete-wrapper message-body animated" transition="fade-results"
+    <div v-show="showResults" class="autocomplete-wrapper message-body animated animated-t025" transition="fade-results"
         v-on:keydown="stopScroll">
         <div class="media autocomplete-item pointer animated" v-for="item in results" v-autocomplete-item="focused"
             v-bind:focusindex="$index" tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger"
@@ -75,7 +76,7 @@
 
 
     <div v-show="isEmpty" class="content animated" transition="bounce-isEmpty">
-        <h1 class="t-white t-left t-bolder t-center">
+        <h1 class="t-white t-bolder t-center">
             Unknown Pokemon "{{input}}"
             <br> Go catch it!
         </h1>
@@ -83,11 +84,120 @@
 
 
 
-    <div id="autocomplete_item" v-show="!showResults && item.name" class="item-row animated outline-0" transition="fade-results"
-        tabindex="0" v-on:keydown="itemKeydown">
-        <img v-bind:src="item.imageUrl">
-        <div class="content">
-            <h1>item</h1>
+    <div id="autocomplete_item" v-show="!showResults && item.name" class="animated animated-t025 outline-0"
+        transition="fade-item" tabindex="0" v-on:keydown="itemKeydown">
+        <div class="item-row">
+
+            <img v-bind:src="item.imageUrl" class="pointer">
+
+            <div class="content">
+
+                <div class="row bottom-xs">
+                    <div class="col-xs">
+                        <h1 class="t-white t-left t-bolder t-300">{{item.name}}</h1>
+                        <table class="table is-narrow">
+                            <tbody>
+                                <tr v-show="item.nationalPokedexNumber">
+                                    <td>Pokedex</td>
+                                    <td>{{item.nationalPokedexNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Series</td>
+                                    <td>{{item.series}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Set</td>
+                                    <td>{{item.set}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Rarity</td>
+                                    <td>{{item.rarity}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-xs">
+                        <table class="table is-narrow">
+                            <tbody>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>{{item.types}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Sub Type</td>
+                                    <td>{{item.subtype}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Super Type</td>
+                                    <td>{{item.supertype}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Retreat Cost</td>
+                                    <td>{{item.retreatCost}}</td>
+                                </tr>
+                                <tr v-show="item.weaknesses">
+                                    <td>Weakness</td>
+                                    <td>
+                                        <p v-for="weak in item.weaknesses">
+                                            {{weak.value}} {{weak.type}}
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr v-show="item.resistances">
+                                    <td>Resistance</td>
+                                    <td>
+                                        <p v-for="resist in item.resistances">
+                                            {{resist.value}} {{resist.type}}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <table v-if="item.ability" class="table is-narrow">
+                    <tbody>
+                        <tr>
+                            <td>Ability</td>
+                            <td>
+                                <u>{{item.ability.name}}</u> {{item.ability.text}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a class="button is-success is-inverted is-outlined icon-only">
+                    <span class="ion-icon icon-add t-200 t-bolder"></span>
+                </a>
+
+                <table v-if="item.attacks" class="table is-narrow">
+                    <tbody>
+                        <tr class="t-grey-lighter t-italic">
+                            <td>Cost</td>
+                            <td>Attack</td>
+                            <td>Description</td>
+                            <td>Damage</td>
+                            <td width="75">Cvt Cost</td>
+                        </tr>
+                        <tr v-for="attack in item.attacks">
+                            <td>
+                                <span v-for="cost in attack.cost">
+                                    {{cost}}
+                                </span>
+                            </td>
+                            <td>{{attack.name}}</td>
+                            <td>{{attack.text}}</td>
+                            <td>{{attack.damage}}</td>
+                            <td>{{attack.convertedEnergyCost}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+            </div>
+
         </div>
     </div>
 

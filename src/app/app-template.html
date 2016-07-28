@@ -9,15 +9,9 @@
     <header class="nav animated fadeInDown">
         <div class="container">
             <div class="nav-left">
-                <div v-show="showNav('logo')" class="nav-item animated pad-0-x" transition="swap-nav-left">
+                <div class="nav-item pad-0-x">
                     <a href="https://www.mark43.com/" target="_blank">
                         <img src="img/logo.png" alt="Mark43 Logo">
-                    </a>
-                </div>
-                <div v-show="showNav('back')" class="nav-item animated pad-0-x" transition="swap-nav-left" v-on:click="setRoute('autocomplete')">
-                    <a class="button is-large is-light is-outlined">
-                        <i class="ion-icon icon-arrow-back"></i>
-                        <span>Back</span>
                     </a>
                 </div>
             </div>
@@ -27,14 +21,14 @@
                 </span>
             </div>
             <div class="nav-right">
-                <div v-show="showNav('card')" class="nav-item animated pad-0-x" transition="swap-nav-right" v-on:click="setRoute('card')">
-                    <a class="button is-medium is-light is-outlined">
+                <div v-show="showNav('card')" class="nav-item animated pad-0-x" transition="swap-nav-right">
+                    <a class="button is-medium is-light is-outlined" v-on:click="setRoute('card')">
                         <i class="ion-icon icon-construct"></i>
                         <span>View Card</span>
                     </a>
                 </div>
-                <div v-show="showNav('autocomplete')" class="nav-item animated pad-0-x" transition="swap-nav-right" v-on:click="setRoute('autocomplete')">
-                    <a class="button is-medium is-light is-outlined">
+                <div v-show="showNav('autocomplete')" class="nav-item animated pad-0-x" transition="swap-nav-right">
+                    <a class="button is-medium is-light is-outlined" v-on:click="setRoute('autocomplete')">
                         <i class="ion-icon icon-search"></i>
                         <span>Pokemon</span>
                     </a>
