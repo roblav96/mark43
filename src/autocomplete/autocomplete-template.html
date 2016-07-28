@@ -98,11 +98,13 @@
         <div class="pointer" v-on:click="startVideo">
             <img id="card" v-bind:src="item.imageUrl">
 
+            <p></p>
+
             <div class="button is-outlined is-light is-large w-100">
                 <span class="icon">
                     <i class="fa ion-icon icon-contact t-175"></i>
                 </span>
-                <span>Insert Face</span>
+                <span>{{getFaceToggle}} Face</span>
             </div>
         </div>
 
@@ -151,7 +153,7 @@
                                 <td>Retreat Cost</td>
                                 <td>{{item.retreatCost}}</td>
                             </tr>
-                            <tr v-show="item.weaknesses">
+                            <tr>
                                 <td>Weakness</td>
                                 <td>
                                     <p v-for="weak in item.weaknesses">
@@ -159,7 +161,7 @@
                                     </p>
                                 </td>
                             </tr>
-                            <tr v-show="item.resistances">
+                            <tr>
                                 <td>Resistance</td>
                                 <td>
                                     <p v-for="resist in item.resistances">
@@ -190,7 +192,7 @@
                         <td class="t-normal">Attack</td>
                         <td>Description</td>
                         <td>Damage</td>
-                        <td width="75">Cvt Cost</td>
+                        <td>Cvt Cost</td>
                     </tr>
                     <tr v-for="attack in item.attacks">
                         <td>

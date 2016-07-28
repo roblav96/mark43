@@ -80,12 +80,16 @@ module.exports = {
 			},
 			item: {},
 			viewing: false,
+			videoing: false,
 		}
 	},
 
 	computed: {
 		'showResults': function () {
 			return this.results.length != 0 && !this.viewing
+		},
+		'getFaceToggle': function () {
+			return ( this.videoing ) ? 'Remove' : 'Insert'
 		},
 	},
 
@@ -142,6 +146,7 @@ module.exports = {
 		},
 
 		inputFocused: function () {
+			this.stopVideo()
 			this.viewing = false
 			this.item = {}
 		},
@@ -172,6 +177,7 @@ module.exports = {
 		},
 
 		clearInput: function () {
+			this.stopVideo()
 			this.results = []
 			this.input = ''
 			this.viewing = false
@@ -182,6 +188,7 @@ module.exports = {
 		},
 
 		clearItem: function () {
+			this.stopVideo()
 			this.viewing = false
 			this.item = {}
 			this.$nextTick( function () {
@@ -206,7 +213,6 @@ module.exports = {
 		},
 
 		clearResults: function () {
-			console.info( 'clearResults >' )
 			this.results = []
 			this.isEmpty = false
 		},
@@ -217,9 +223,6 @@ module.exports = {
 			}
 
 			this.setProg( 'start' )
-
-			console.info( 'getResults >' )
-
 			let input = trim( this.input.toLowerCase() )
 
 			axios.get( 'https://api.pokemontcg.io/v1/cards', {
@@ -273,31 +276,54 @@ module.exports = {
 
 		},
 
+		stopVideo: function () {
+			if ( this.stream ) {
+				let video = document.getElementById( 'video' )
+				video.pause()
+				video.src = ''
+				this.stream.getTracks()[ 0 ].stop()
+				video.style.display = 'none'
+				this.stream = null
+				this.videoing = false
+			}
+		},
+
 		startVideo: function () {
-			console.info( 'startVideo >' )
 
 			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia
 			if ( navigator.getUserMedia ) {
 
+				if ( this.stream ) {
+					return this.stopVideo()
+				}
+
 				let video = document.getElementById( 'video' )
 				let card = document.getElementById( 'card' )
 				let rect = card.getBoundingClientRect()
+				let w = card.offsetWidth
+				let h = card.offsetHeight
 
-				video.style.top = ( rect.top + 35 ).toString() + 'px'
-				video.style.left = ( rect.left + 15 ).toString() + 'px'
+				video.style.top = ( rect.top + ( h * 0.11 ) ).toString() + 'px'
+				video.style.left = ( rect.left + ( w * 0.09 ) ).toString() + 'px'
+				video.style[ 'max-width' ] = ( w - ( w * 0.18 ) ).toString() + 'px'
 				video.style.display = 'initial'
 
 				navigator.getUserMedia( {
 					video: true
-				}, function ( stream ) {
+				}, ( stream ) => {
+					this.stream = stream
 					video.src = window.URL.createObjectURL( stream )
-				}, function ( err ) {
+					this.videoing = true
+				}, ( err ) => {
 					console.error( err )
+					this.stopVideo()
+					this.videoing = false
 					alert( 'Webcam ERROR!\n\n' + JSON.stringify( err, true, 4 ) )
 				} )
 
 			} else {
 				document.getElementById( 'stream' ).style.display = 'none'
+				this.videoing = false
 				alert( 'Unavilable Webcam Support.\n\nUSE CHROME!!!' )
 			}
 

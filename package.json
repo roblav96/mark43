@@ -1,7 +1,7 @@
 {
   "name": "mark43",
   "description": "Take Home Test",
-  "author": "roblav96 <roblav96@gmx.com>",
+  "author": "",
   "private": true,
   "scripts": {
     "dev": "open http://localhost:4343/ & webpack-dev-server --inline --hot --port 4343",
