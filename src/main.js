@@ -1,7 +1,6 @@
 // 
 
 import Vue from 'vue'
-import store from './store'
 import app from './app/app.vue'
 
 
@@ -15,8 +14,6 @@ new Vue( {
 	components: {
 		app,
 	},
-
-	store,
 
 } )
 

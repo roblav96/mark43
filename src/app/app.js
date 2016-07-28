@@ -1,6 +1,6 @@
 //
 
-import autocomplete from './autocomplete.vue'
+import autocomplete from '../autocomplete/autocomplete.vue'
 
 
 

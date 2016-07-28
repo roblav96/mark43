@@ -2,6 +2,7 @@
 
 import {
 	isUndefined,
+	isElement,
 	map,
 	delay,
 	orderBy,
@@ -34,6 +35,10 @@ module.exports = {
 		'item-stagger': {
 			enterClass: 'slideInDown',
 			leaveClass: 'slideOutUp',
+		},
+		'fade-clear': {
+			enterClass: 'fadeInLeft',
+			leaveClass: 'fadeOutLeft',
 		},
 		'bounce-isEmpty': {
 			enterClass: 'bounceIn',
@@ -94,7 +99,7 @@ module.exports = {
 	},
 
 	ready: function () {
-		console.warn( 'autocomplete ready' )
+		console.warn( 'AUTOCOMPLETE READY' )
 		document.getElementById( 'autocomplete' ).focus()
 		delay( this.getResults, 500 ) // let the component change transition finish first
 	},
@@ -159,25 +164,41 @@ module.exports = {
 
 		itemKeydown: function ( evt ) {
 			let key = evt.which
-			if ( includes( [ 27, 38, 8, 40, 13 ], key ) ) { // esc, up, down, backspace, enter
+			if ( includes( [ 27, 38, 8, 40, 13, 9 ], key ) ) { // esc, up, down, backspace, enter, tab
 				this.clearItem()
 				evt.preventDefault()
 				return false
 			}
 		},
 
+		clearInput: function () {
+			this.results = []
+			this.input = ''
+			this.viewing = false
+			this.item = {}
+			this.$nextTick( function () {
+				document.getElementById( 'autocomplete' ).focus()
+			} )
+		},
+
 		clearItem: function () {
 			this.viewing = false
 			this.item = {}
 			this.$nextTick( function () {
-				document.getElementsByClassName( 'autocomplete-item' )[ this.focused ].focus()
+				let els = document.getElementsByClassName( 'autocomplete-item' )
+				if ( isElement( els[ this.focused ] ) ) {
+					els[ this.focused ].focus()
+				} else {
+					els[ 0 ].focus()
+				}
 			} )
 		},
 
 		openItem: function ( evt ) {
 			let index = ( isUndefined( evt ) ) ? this.focused : evt.currentTarget.index
-			this.item = this.results[ index ]
-			console.log( 'this.item >', JSON.stringify( this.item, true, 4 ) )
+			let item = this.results[ index ]
+			this.item = item
+			this.input = item.name
 			this.viewing = true
 			this.$nextTick( function () { // allow the DOM to update because 'autocomplete_item' is not in the DOM due to results being shown
 				document.getElementById( 'autocomplete_item' ).focus()
@@ -249,6 +270,36 @@ module.exports = {
 			}
 
 			merge( this.progging, set )
+
+		},
+
+		startVideo: function () {
+			console.info( 'startVideo >' )
+
+			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia
+			if ( navigator.getUserMedia ) {
+
+				let video = document.getElementById( 'video' )
+				let card = document.getElementById( 'card' )
+				let rect = card.getBoundingClientRect()
+
+				video.style.top = ( rect.top + 35 ).toString() + 'px'
+				video.style.left = ( rect.left + 15 ).toString() + 'px'
+				video.style.display = 'initial'
+
+				navigator.getUserMedia( {
+					video: true
+				}, function ( stream ) {
+					video.src = window.URL.createObjectURL( stream )
+				}, function ( err ) {
+					console.error( err )
+					alert( 'Webcam ERROR!\n\n' + JSON.stringify( err, true, 4 ) )
+				} )
+
+			} else {
+				document.getElementById( 'stream' ).style.display = 'none'
+				alert( 'Unavilable Webcam Support.\n\nUSE CHROME!!!' )
+			}
 
 		},
 

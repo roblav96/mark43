@@ -3,10 +3,17 @@
 
 
 
-<div class="control has-icon marg-0">
-    <input id="autocomplete" class="input is-large" type="text" placeholder="Search Pokemon..." v-model="input"
-        debounce="1000" v-on:keydown="inputKeydown" v-on:focus="inputFocused">
+
+<div class="control has-icon has-addons marg-0">
+    <input id="autocomplete" class="input is-large is-expanded" type="text" placeholder="Pokemon Names..."
+        v-model="input" debounce="1000" v-on:keydown="inputKeydown" v-on:focus="inputFocused">
     <i class="fa ion-icon icon-search"></i>
+    <div v-show="input != ''" class="button is-danger is-large autocomplete-clear animated" transition="fade-clear"
+        v-on:click="clearInput">
+        <span class="icon icon-only">
+            <i class="fa ion-icon icon-backspace t-200"></i>
+        </span>
+    </div>
 </div>
 
 <div class="autocomplete-prog" v-bind:class="progging"></div>
@@ -18,7 +25,7 @@
         <table class="table is-narrow autocomplete-table">
             <thead>
                 <tr>
-                    <th width="150"><i class="ion-icon icon-contact t-200"></i> Card</th>
+                    <th width="150"><i class="ion-icon icon-document t-200"></i> Card</th>
                     <th width="50"><i class="ion-icon icon-medkit t-200"></i> HP</th>
                     <th width="100"><i class="ion-icon icon-body t-200"></i> Type</th>
                     <th width="100"><i class="ion-icon icon-thumbs-down t-200"></i> Weakness</th>
@@ -84,13 +91,22 @@
 
 
 
-<div id="autocomplete_item" v-show="!showResults && item.name" class="outline-0 pointer animated animated-t05"
-    tabindex="0" transition="item-zoom" v-on:keydown="itemKeydown" v-on:click="clearItem">
+<div id="autocomplete_item" v-show="!showResults && item.name" class="outline-0 animated animated-t05"
+    tabindex="0" transition="item-zoom" v-on:keydown="itemKeydown">
     <div class="item-row">
 
-        <img v-bind:src="item.imageUrl">
+        <div class="pointer" v-on:click="startVideo">
+            <img id="card" v-bind:src="item.imageUrl">
 
-        <div class="content">
+            <div class="button is-outlined is-light is-large w-100">
+                <span class="icon">
+                    <i class="fa ion-icon icon-contact t-175"></i>
+                </span>
+                <span>Insert Face</span>
+            </div>
+        </div>
+
+        <div class="content pointer" v-on:click="clearItem">
 
             <div class="row bottom-xs">
                 <div class="col-xs">
@@ -194,6 +210,11 @@
 
     </div>
 </div>
+
+
+
+<video id="video" autoplay="true"></video>
+
 
 
 
