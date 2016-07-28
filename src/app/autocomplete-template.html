@@ -33,7 +33,7 @@
         v-on:keydown="stopScroll">
         <div class="media autocomplete-item pointer animated" v-for="item in results" v-autocomplete-item="focused"
             v-bind:focusindex="$index" tabindex="0" v-on:focus="focused = $index" v-on:click="openItem" transition="item-stagger"
-            stagger="50">
+            enter-stagger="50" leave-stagger="10">
             <figure class="media-left">
                 <div class="image is-48x48">
                     <img v-bind:src="item.imageUrl">

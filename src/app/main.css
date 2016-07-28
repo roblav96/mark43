@@ -37,8 +37,10 @@ header div.nav-right > div.nav-item.animated {
 
 footer {
     position: fixed;
-    top: 0px;
+    width: 7rem;
+    bottom: 0px;
     z-index: 9;
+    text-align: center;
 }
 
 footer div.content {
@@ -84,7 +86,7 @@ footer a {
 .autocomplete-wrapper {
     position: absolute;
     background-color: #42afe3;
-    max-height: 25rem;
+    max-height: calc(100vh - 20rem);
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
@@ -107,6 +109,10 @@ footer a {
     background-color: #85cbed !important;
     border: 1px solid white;
     outline: none;
+}
+
+.autocomplete-item:active {
+    background-color: #1c89bd !important;
 }
 
 .autocomplete-wrapper::-webkit-scrollbar {

@@ -15,9 +15,6 @@ import {
 	trim,
 } from 'lodash'
 import axios from 'axios'
-import {
-	store_setItem,
-} from '../store'
 
 
 
@@ -40,15 +37,6 @@ module.exports = {
 		'bounce-isEmpty': {
 			enterClass: 'bounceIn',
 			leaveClass: 'bounceOut',
-		},
-	},
-
-	vuex: {
-		getters: {
-
-		},
-		actions: {
-			store_setItem,
 		},
 	},
 
@@ -115,6 +103,7 @@ module.exports = {
 		openItem: function ( evt ) {
 			let index = ( isUndefined( evt ) ) ? this.focused : evt.currentTarget.index
 			this.item = this.results[ index ]
+			console.log( 'this.item >', JSON.stringify( this.item, true, 4 ) )
 			this.viewing = true
 			this.$nextTick( function () { // allow the DOM to update because 'autocomplete_item' is not in the DOM due to results being shown
 				document.getElementById( 'autocomplete_item' ).focus()
@@ -127,7 +116,6 @@ module.exports = {
 		},
 
 		stopScroll: function ( evt ) {
-			console.log( 'stopScroll >', evt )
 			let keys = [ 9, 33, 34, 35, 36, 37, 38, 39, 40, 8, 27 ] // esc, backspace, tab, page, and arrow keys
 			let key = evt.which
 			if ( includes( keys, key ) ) {
@@ -163,7 +151,6 @@ module.exports = {
 		},
 
 		inputKeydown: function ( evt ) {
-			console.log( 'inputKeydown >', evt )
 			let key = evt.which
 			if ( key == 8 ) { // backspace
 				if ( isEmpty( this.results ) ) {
@@ -180,7 +167,6 @@ module.exports = {
 		},
 
 		itemKeydown: function ( evt ) {
-			console.log( 'itemKeydown >', evt )
 			let key = evt.which
 			if ( includes( [ 27, 38, 8, 40, 13 ], key ) ) { // esc, up, down, backspace, enter
 				// if ( includes( [ 27, 38, 8, 40, 37, 39 ], key ) ) { // esc, up, down, backspace
