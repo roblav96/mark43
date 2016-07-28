@@ -182,7 +182,7 @@
                         </tr>
                         <tr v-for="attack in item.attacks">
                             <td>
-                                <span v-for="cost in attack.cost">
+                                <span v-for="cost in attack.cost" track-by="$index">
                                     {{cost}}
                                 </span>
                             </td>
