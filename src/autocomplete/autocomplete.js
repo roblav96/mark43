@@ -400,11 +400,12 @@ export default {
 					console.error( err )
 					this.stopVideo()
 					this.videoing = false
+					document.getElementById( 'video' ).style.display = 'none'
 					alert( 'Webcam ERROR!\n\n' + JSON.stringify( err, true, 4 ) )
 				} )
 
 			} else {
-				document.getElementById( 'stream' ).style.display = 'none'
+				document.getElementById( 'video' ).style.display = 'none'
 				this.videoing = false
 				alert( 'Unavilable Webcam Support.\n\nUSE CHROME!!!' )
 			}
